@@ -1,16 +1,16 @@
 # Imagen base
 FROM node:latest
 
-WORKDIR /usr
+WORKDIR /app
 
-RUN ls
+COPY package*.json ./
 
 RUN npm install
 
-RUN npm build
-
 COPY . .
 
-EXPOSE 3000
+RUN npm run build
+
+EXPOSE 8000
 
 CMD ["node", "dist/main.js"]
