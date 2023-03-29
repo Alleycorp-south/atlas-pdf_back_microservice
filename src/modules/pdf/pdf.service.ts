@@ -24,7 +24,7 @@ export class PdfService {
     const {html} = input;
 
     // Create a browser instance
-    const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox --font-render-hinting=none'] });
+    const browser = await puppeteer.launch({ });
 
     // Create a new page
     const page = await browser.newPage();
