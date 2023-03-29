@@ -3,9 +3,9 @@ FROM node:latest
 
 WORKDIR /usr
 
-RUN npm install
-
 RUN ls
+
+RUN npm install
 
 RUN npm build
 
