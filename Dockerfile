@@ -5,6 +5,8 @@ WORKDIR /usr
 
 RUN npm install
 
+RUN ls
+
 RUN npm build
 
 COPY . .
