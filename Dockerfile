@@ -1,7 +1,7 @@
 # Imagen base
 FROM node:latest
 
-WORKDIR /usr/src/app
+WORKDIR /usr
 
 RUN npm install
 
