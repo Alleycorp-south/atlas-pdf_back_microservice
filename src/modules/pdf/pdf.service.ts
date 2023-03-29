@@ -24,7 +24,7 @@ export class PdfService {
     const {html} = input;
 
     // Create a browser instance
-    const browser = await puppeteer.launch({ });
+    const browser = await puppeteer.launch({ ignoreDefaultArgs: ['--disable-extensions'] });
 
     // Create a new page
     const page = await browser.newPage();
