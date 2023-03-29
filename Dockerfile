@@ -1,19 +1,14 @@
 # Imagen base
-FROM ubuntu:latest
+FROM node:latest
 
-# Actualiza el sistema
-RUN apt-get update && apt-get -y upgrade
+WORKDIR /usr/src
 
-# Instala fuentes chinas
-RUN apt-get -y install fonts-wqy-zenhei fonts-wqy-microhei
+RUN npm install
 
-# Establece las variables de entorno para las fuentes chinas
-ENV LANG C.UTF-8
-ENV LANGUAGE C.UTF-8
-ENV LC_ALL C.UTF-8
+RUN npm build
 
-# Ejecuta cualquier comando necesario para configurar tu aplicación
-CMD ["npm", "build"]
+COPY . .
 
-# Establece el comando de inicio para tu aplicación
-CMD ["npm", "start"]
+EXPOSE 3000
+
+CMD ["node", "dist/main.js"]
