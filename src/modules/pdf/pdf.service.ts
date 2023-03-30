@@ -21,15 +21,24 @@ export class PdfService {
   public static async generatePdfFromHtml(
     input: GeneratePdfFromHtmlInput,
   ): Promise<string> {
-    const {html} = input;
+    const { html } = input;
+
+    const browserFetcher = puppeteer.createBrowserFetcher();
+    const revisionInfo = await browserFetcher.download('1095492');
+
 
     // Create a browser instance
-    const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+    const browser = await puppeteer.launch({
+      executablePath: revisionInfo?.executablePath,
+      ignoreDefaultArgs: ['--disable-extensions'],
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
 
     // Create a new page
     const page = await browser.newPage();
 
-    await page.setContent(html, {waitUntil: "domcontentloaded"});
+    await page.setContent(html, { waitUntil: "domcontentloaded" });
 
     // To reflect CSS used for screens instead of print
     await page.emulateMediaType("screen");
@@ -37,7 +46,7 @@ export class PdfService {
 
     // Downlaod the PDF
     const pdf = await page.createPDFStream({
-      margin: {top: "100px", right: "50px", bottom: "100px", left: "50px"},
+      margin: { top: "100px", right: "50px", bottom: "100px", left: "50px" },
       printBackground: true,
       format: "A4",
     });
